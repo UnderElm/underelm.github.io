@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+  <!-- Html Head Tag-->
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="zesen.he">
+  
+  
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="Airflow 安装笔记"/>
+  <meta property="og:description" content="少女情怀总是湿" />
+  <meta property="og:site_name" content="小森森的个人博客"/>
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="http://yoursite.com"/>
+  
+    <link rel="alternate" href="/atom.xml" title="小森森的个人博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/favicon.ico">
+  
+
+  <!-- Site Title -->
+  <title>小森森的个人博客</title>
+
+  <!-- Bootstrap CSS -->
+  
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+  
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+  <!-- Custom CSS -->
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- Google Analytics -->
+  
+
+  <!-- BaiDu Analytics -->
+  
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+  <body>
+    <!-- Page Header -->
+
+
+<nav class="navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse site-menu">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/about">
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="mailto:hezesen@qq.com">
+                            
+                                Email
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/%5Bobject%20Object%5D">
+                            
+                                <i class="icon fa fa-github fa-lg"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Header -->
+<header class="site-header header-background intro-header" style="background-image: url(/img/default-banner.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">Airflow 安装笔记</p>
+          <p class="subtitle"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<article>
+  <div class="container typo">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-info text-muted">
+          
+            <!-- Author -->
+            <span class="author info">By zesen.he</span>
+          
+          <!-- Date -->
+          <span class="date-time info">On
+            <span class="date">2020-04-01T17:12:36+08:00</span>
+            <!--<span class="date">2020-04-01</span>
+            <span class="time">10:12:31</span> -->
+          </span>
+          
+        </div>
+        <!-- Tags -->
+        
+        <!-- Post Main Content -->
+        <div class="post-content">
+          <h2 id="Airflow-安装笔记"><a href="#Airflow-安装笔记" class="headerlink" title="Airflow 安装笔记"></a>Airflow 安装笔记</h2><h4 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h4><blockquote>
+<p>vmware centos 7 </p>
+<p>自带 python 2.7</p>
+</blockquote>
+<p>主流程参考 <a href="https://www.cnblogs.com/braveym/p/11378851.html" target="_blank" rel="noopener">https://www.cnblogs.com/braveym/p/11378851.html</a> 但部分比较冗余，以下是整理后的版本</p>
+<p>第一次在hadoop 集群master 上安装因为内存以及 mysql 各种报错放弃了 /狗头，后面选了台 slave 安装，比较顺利。</p>
+<h4 id="添加开发库"><a href="#添加开发库" class="headerlink" title="添加开发库"></a>添加开发库</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo yum -y install gcc  </span><br><span class="line">sudo yum -y install python-cffi </span><br><span class="line">sudo yum install python-devel</span><br><span class="line">sudo yum install libevent-devel</span><br><span class="line">sudo yum install mysql-devel</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="安装及更新-pip-和-setuptools"><a href="#安装及更新-pip-和-setuptools" class="headerlink" title="安装及更新 pip 和 setuptools"></a>安装及更新 pip 和 setuptools</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo yum -y install epel-release</span><br><span class="line">sudo yum -y install python-pip</span><br><span class="line">sudo pip install --upgrade pip</span><br><span class="line">sudo pip install --upgrade setuptools</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>这边无视了主流程更新 repo 部分以及 yum 部分。</p>
+</blockquote>
+<h4 id="安装mysql，卸载mariaDB"><a href="#安装mysql，卸载mariaDB" class="headerlink" title="安装mysql，卸载mariaDB"></a>安装mysql，卸载mariaDB</h4><p>安装mysql 没有参考主流程，主要借鉴  <a href="https://www.cnblogs.com/shuo1208/p/11237713.html" target="_blank" rel="noopener">https://www.cnblogs.com/shuo1208/p/11237713.html</a> ，可以直接replace 掉mariaDB，可完全参考，密码部分需要大小写字母数字及特色字符，可看需求参考改密码规则的部分。</p>
+<h5 id="etc-my-cnf-添加"><a href="#etc-my-cnf-添加" class="headerlink" title="/etc/my.cnf 添加"></a>/etc/my.cnf 添加</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">skip-grant-tables</span><br><span class="line"><span class="meta">#</span><span class="bash"> 编码</span></span><br><span class="line">character_set_server=utf8</span><br><span class="line">init_connect='SET NAMES utf8'</span><br></pre></td></tr></table></figure>
+
+<h5 id="创建-Airflow-用户，xxx是设置的密码"><a href="#创建-Airflow-用户，xxx是设置的密码" class="headerlink" title="创建 Airflow 用户，xxx是设置的密码"></a>创建 Airflow 用户，xxx是设置的密码</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create user &#39;airflow&#39;@&#39;localhost&#39; identified by &#39;xxx&#39;;</span><br></pre></td></tr></table></figure>
+
+<h5 id="允许远程登陆"><a href="#允许远程登陆" class="headerlink" title="允许远程登陆"></a>允许远程登陆</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRANT ALL PRIVILEGES ON *.* TO &#39;airflow&#39;@&#39;%&#39; IDENTIFIED BY &#39;xxx&#39; WITH GRANT OPTION;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
+
+<h5 id="开机自启"><a href="#开机自启" class="headerlink" title="开机自启"></a>开机自启</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl enable mysqld</span><br></pre></td></tr></table></figure>
+
+<h5 id="重启mysqld"><a href="#重启mysqld" class="headerlink" title="重启mysqld"></a>重启mysqld</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restart mysqld.service</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="安装Airflow"><a href="#安装Airflow" class="headerlink" title="安装Airflow"></a>安装Airflow</h4><h5 id="添加环境变量-etc-profile，记得source"><a href="#添加环境变量-etc-profile，记得source" class="headerlink" title="添加环境变量 /etc/profile，记得source"></a>添加环境变量 /etc/profile，记得source</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">airflow</span></span><br><span class="line">export AIRFLOW_HOME=/opt/modules/airflow</span><br><span class="line">export SLUGIFY_USES_TEXT_UNIDECODE=yes</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="pip-安装-airflow"><a href="#pip-安装-airflow" class="headerlink" title="pip 安装 airflow"></a>pip 安装 airflow</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip install apache-airflow</span><br></pre></td></tr></table></figure>
+
+<p>安装没有出现主流程中的报错，有的话可以参考。</p>
+<h5 id="设置mysql-数据库连接"><a href="#设置mysql-数据库连接" class="headerlink" title="设置mysql 数据库连接"></a>设置mysql 数据库连接</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip install apache-airflow[mysql]</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="新建airflow库"><a href="#新建airflow库" class="headerlink" title="新建airflow库"></a>新建airflow库</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create database airflow</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="cd-usr-lib-python2-7-site-packages-airflow-bin-执行"><a href="#cd-usr-lib-python2-7-site-packages-airflow-bin-执行" class="headerlink" title="cd /usr/lib/python2.7/site-packages/airflow/bin 执行"></a>cd /usr/lib/python2.7/site-packages/airflow/bin 执行</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./airflow</span><br></pre></td></tr></table></figure>
+
+<p>需要先执行 packages 中的airflow ，才会生成 AIRFLOW_HOME</p>
+<h5 id="cd-AIRFLOW-HOME，修改airflow-cfg"><a href="#cd-AIRFLOW-HOME，修改airflow-cfg" class="headerlink" title="cd AIRFLOW_HOME，修改airflow.cfg"></a>cd AIRFLOW_HOME，修改airflow.cfg</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 有不同 Executor 可了解</span><br><span class="line">executor &#x3D;  LocalExecutor </span><br><span class="line"># hdp-02 是主机，我测试在我的一个slave 上</span><br><span class="line">sql_alchemy_conn &#x3D; mysql:&#x2F;&#x2F;airflow:xxx@hdp-02&#x2F;airflow</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="在-etc-my-cnf-添加"><a href="#在-etc-my-cnf-添加" class="headerlink" title="在 /etc/my.cnf 添加"></a>在 /etc/my.cnf 添加</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">explicit_defaults_for_timestamp&#x3D;1</span><br></pre></td></tr></table></figure>
+
+<p>其他参考中没有提及</p>
+<h5 id="初始化airflow并启动web服务"><a href="#初始化airflow并启动web服务" class="headerlink" title="初始化airflow并启动web服务"></a>初始化airflow并启动web服务</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo airflow initdb</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nohup airflow webserver &gt; webserver.log &amp;</span><br><span class="line">nohup airflow scheduler &gt; scheduler.log &amp;</span><br><span class="line">nohup  airflow worker &gt; worker.log &amp;</span><br><span class="line">nohup  airflow flower &gt; flower.log &amp;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>浏览器打开地址 hdp-02:8080 ,需要注意端口可能被占用。</p>
+
+        </div>
+        <!-- Comments -->
+        
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+    
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+        &copy; 2016 -  2020
+        <span class="with-love">
+            <i class="fa fa-heart"></i>
+        </span>
+        <span class="author">zesen.he</span>
+
+        
+
+        
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <p class="visit-statistics">
+            <span id="busuanzi_container_site_pv">
+              本站总访问：<span id="busuanzi_value_site_pv"></span>次
+              &nbsp;&nbsp;&nbsp;&nbsp;
+            </span>
+        <p>
+        
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+
+<script src="/js/highlight.pack.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+
+
+  </body>
+</html>
+
